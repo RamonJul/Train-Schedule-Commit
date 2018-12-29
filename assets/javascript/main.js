@@ -74,3 +74,34 @@ database.ref("/train_info").on("child_added", function (snapshopt) {
     document.getElementById("list").appendChild(row);
 
 })
+
+
+
+// AUTHENTICATION
+    var auth = firebase.auth()
+
+    var email_box=document.getElementById("email")
+    var password_box=document.getElementById("password")
+
+    document.getElementById("SignuP").addEventListener("click", function(){
+        //check for valid email
+        var email=email_box.value
+        var password=password_box.value
+
+        var user=auth.createUserWithEmailAndPassword(email,password)
+
+
+    })
+
+    firebase.auth().onAuthStateChanged(firebaseUser =>{
+
+        if(firebaseUser){
+            console.log(firebaseUser);
+        } else{
+            console.log("not logged in")
+        }
+
+    
+
+
+    })
