@@ -1,0 +1,28 @@
+.navbar{
+    margin-bottom: 2%;
+}
+
+#table, #new_entry{
+    margin-bottom: 2%;
+    border: 2px solid grey;
+  border-radius: 15px;
+}
+
+#table{
+    margin-bottom: 2%;
+
+}
+td,th{
+     border-bottom: 1px solid #dee2e6; 
+     border-top: 0 solid #dee2e6 !important; 
+}
+.input-group{
+    margin: 2% 0;
+}
+.form-control{
+    color: #808283
+}
+
+.btn{
+    margin: 2% 0;
+}
