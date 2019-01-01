@@ -8,6 +8,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
   <link rel="stylesheet" href="assets/javascript/styles.css">
+   <!-- jQuery -->
+   <script src="https://code.jquery.com/jquery.js"></script>
+
+   <!-- Link to Moment.js should go here -->
+   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
 </head>
 
@@ -55,18 +60,13 @@
     <input type="text" id="next_arrival" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="First Train">
   </div>
 
-  <div class="input-group input-group-sm mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
-    </div>
-    <input type="text" id="time_left" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
-  </div>
+
 
   <button type="button" id="submit" class="btn btn-primary">Enter</button>
 </div>
 </div>
 </div>
-
+<button onclick="myFunction()">Try it</button>
 
 
 

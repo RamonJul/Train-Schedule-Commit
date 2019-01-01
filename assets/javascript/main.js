@@ -2,8 +2,8 @@ var train_box = document.getElementById("train_name")
 var destination_box = document.getElementById("destination")
 var frequency_box = document.getElementById("frequency")
 var arrival_box = document.getElementById("next_arrival")
-var time_left_box = document.getElementById("time_left")
-var number=0;
+var intervalId;
+var internal_time=0
 
 // Initialize Firebase
 var config = {
@@ -20,71 +20,166 @@ var database = firebase.database();
 // console.log(database.ref().val())
 
 
-
+// add new data
 document.getElementById("submit").addEventListener("click", function () {
     var train = train_box.value;
     var destination = destination_box.value;
     var frequency = frequency_box.value;
-    var arrival = arrival_box.value;
-    var time = time_left_box.value;
-    database.ref().push({
+    var arrival =arrival_box.value
+    database.ref("/train").push({
         train: train,
         destination: destination,
         frequency: frequency,
         arrival: arrival,
-        time: time,
-        train_number:number
+        eta:frequency
+    
     })
-    number++
-    train_box.value = "";
-    destination_box.value = "";
-    frequency_box.value = "";
-    arrival_box.value = "";
-    time_left_box.value = "";
+
+    train_box.value = "Trian";
+    destination_box.value = "Destinatoin";
+    frequency_box.value = "Frequency";
+    arrival_box.value = "First Train";
 
 
 
 })
     
-database.ref().on("value", function (snapshopt) {
-    console.log(snapshopt.val())
-    snapshopt.forEach((child) => {
-        console.log(child.key, child.val()); 
 
-      });
+function myFunction() {// test new stuff
+    var arrival=document.getElementsByClassName("arrival")
+
+  
+    for(var i=0; i<arrival.length;i++){
+        console.log(arrival)
+        var key= arrival[i].parentElement.getAttribute("key");
+        var time_left=arrival[i].textContent
+       var eta= parseInt(time_left);
+       eta--
+     
+        if(eta>0){
+            arrival[i].textContent=eta
+           console.log("not done")
+           database.ref("/train/"+key).update({
+            eta:eta
+        })
+             
+        }
+
+        else{//train arrives
+            console.log("arrived")
+           
+            var frequency=arrival[i].previousSibling.previousSibling.textContent
+            var old_arrival_=arrival[i].previousSibling.textContent
+            var update=moment(old_arrival_,"hh:mm")
+            var min_update=update.minute()+parseInt(frequency)
+            update.set("minute", min_update)//updated time value
+            var new_time=update.format("hh:mm")
+            arrival[i].textContent=frequency
+            arrival[i].previousSibling.textContent=new_time
+            database.ref("/train/"+key).update({
+                
+                arrival:new_time,
+                eta:frequency
+            })
+            //moment stuff    
+
+        }
+
+
+}
+  
+//checks is database has been running
+  database.ref("/time").on("value", function(snapshot){
+    if(snapshot.child("system_time").exists()){
+        internal_time=snapshot.val().system_time
+
+    }
 
 })
-database.ref().on("child_added", function (snapshopt) {
-    console.log(snapshopt)
-    console.log(snapshopt.val())
-
+// appends data on to html
+database.ref("/train").on("child_added", function (snapshot) {
     var row = document.createElement("tr");
+    row.setAttribute("key", snapshot.key)
 
     var train_data = document.createElement("td");
-    train_data.textContent = snapshopt.val().train;
+    train_data.textContent = snapshot.val().train;
     row.appendChild(train_data);
 
     var destination = document.createElement("td");
-    destination.textContent = snapshopt.val().destination;
+    destination.textContent = snapshot.val().destination;
     row.appendChild(destination);
 
     var frequency = document.createElement("td");
-    frequency.textContent = snapshopt.val().frequency;
+    frequency.textContent = snapshot.val().frequency;
     row.appendChild(frequency);
 
-    var time = document.createElement("td");
-    time.textContent = snapshopt.val().time;
+    var time= document.createElement("td");
+    time.textContent = snapshot.val().arrival;
     row.appendChild(time);
 
-    var arrival = document.createElement("td");
-    arrival.textContent = snapshopt.val().arrival;
-    row.appendChild(arrival);
+    var eta = document.createElement("td");
+    eta.textContent = snapshot.val().eta;
+    eta.classList.add("arrival")
+    row.appendChild(eta);
+
 
     document.getElementById("list").appendChild(row);
 
+        
 })
+// internal timer
+
+intervalId=setInterval(function(){
+    internal_time+=1000;
+    database.ref("/time").set({
+    system_time: internal_time
+    
+    })
+    console.log(internal_time)
+    if(internal_time%60000===0){
+     //1 min
+    
+        var arrival=document.getElementsByClassName("arrival")
+        for(var i=0; i<arrival.length;i++){
+            var key= arrival[i].parentElement.getAttribute("key");
+            var eta= parseInt(arrival[i].textContent);
+           eta--
+         
+            if(eta>0){
+                arrival[i].textContent=eta
+               database.ref("/train/"+key).update({
+                eta:eta
+            })
+                 
+            }
+            else if(eta===0){//train arrives
+
+                var frequency=arrival[i].previousSibling.previousSibling.textContent
+                var update=moment(arrival[i].previousSibling.textContent,"hh:mm")
+                var min_update=update.minute()+parseInt(frequency)
+                update.set("minute", min_update)//updated time value
+                var new_time=update.format("hh:mm")
+                arrival[i].textContent=frequency
+                arrival[i].previousSibling.textContent=new_time
+                database.ref("/train/"+key).update({
+                    
+                    arrival:new_time,
+                    eta:frequency
+                })
+                //moment stuff    
+
+            }
+
+        }
+    }
+
+},1000)
 
 
+
+
+
+//Time
 
 // // AUTHENTICATION
 //     var auth = firebase.auth()
