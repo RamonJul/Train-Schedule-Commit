@@ -6,86 +6,173 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Page Title</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+    crossorigin="anonymous">
   <link rel="stylesheet" href="assets/javascript/styles.css">
-   <!-- jQuery -->
-   <script src="https://code.jquery.com/jquery.js"></script>
+  <!-- jQuery -->
+  <script src="https://code.jquery.com/jquery.js"></script>
 
-   <!-- Link to Moment.js should go here -->
-   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+  <!-- Link to Moment.js should go here -->
+  <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
 </head>
 
 <body>
-    <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1">Navbar</span>
-      </nav>
-<div class="container">
-  <div class="row" id="table">
-    <div class="col-md-12">
-  <table id="list" class="table">
-    <tr>
-      <th scope="col">Train</th>
-      <th scope="col">Destination</th>
-      <th scope="col">Frequency</th>
-      <th scope="col">Time</th>
-      <th scope="col">ETA</th>
-    </tr>
-
-  </table>
-</div>
-</div>
-<div class="row" id="new_entry">
-  <div class="col-md-12">
-
-  <div class="input-group input-group-sm mb-3">
- 
-     
-   
-    <input type="text" id="train_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Train">
-  </div>
-  
-  <div class="input-group input-group-sm mb-3">
-   
-    <input type="text" id="destination" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Destination">
-  </div>
-
-  <div class="input-group input-group-sm mb-3">
-
-    <input type="text" id="frequency" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="Frequency">
-  </div>
-
-  <div class="input-group input-group-sm mb-3">
-  
-    <input type="text" id="next_arrival" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="First Train">
-  </div>
-
-
-
-  <button type="button" id="submit" class="btn btn-primary">Enter</button>
-</div>
-</div>
-</div>
-<button onclick="myFunction()">Try it</button>
-
-
-
-  <!-- <div class="input-group input-group-sm mb-3">
-
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-sizing-sm">Small</span>
+  <nav class="navbar navbar-light bg-light">
+    <span class="navbar-brand mb-0 h1">Train Schedule</span>
+    <div> <button type="button" id="Sign-in" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Sign-in
+      </button>
+      <button type="button" id="Log-in" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+        Log-In
+      </button>
+      <button type="button" id="Log-out" class="btn btn-primary">
+        Log-Out
+      </button>
     </div>
-    <input type="text" id="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
- 
-    <input type="text" id="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm">
+
+  </nav>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="jumbotron">
+          <h1 class="display-4" id="current_time">Hello, world!</h1>
+        </div>
+      </div>
+    </div>
+    <div class="row" id="table">
+      <div class="col-md-12">
+
+        <table id="list" class="table">
+        </table>
+
+
+      </div>
+    </div>
+    <div class="row" id="new_entry">
+      <div class="col-md-12"id="new_entry_box" >
+
+        
+        <div class="input-group input-group-sm mb-3">
+
+          <input type="text" id="train_name" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+            value="Train">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+
+          <input type="text" id="destination" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+            value="Destination">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+
+          <input type="text" id="frequency" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+            value="Frequency">
+        </div>
+
+        <div class="input-group input-group-sm mb-3">
+
+          <input type="text" id="next_arrival" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+            value="First Train">
+        </div>
+
+        <button type="button" id="submit" class="btn btn-primary">Enter</button>
+      </div>
+    </div>
   </div>
-  <button type="button" id="SignuP" class="btn btn-primary">Sign Up</button>
-
- -->
+  <button onclick="myFunction()">Try it</button>
 
 
 
 
+  <!-- Button trigger modal -->
+
+
+  <!-- Modal for login and stuff -->
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Title"></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" id="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+              value="email">
+          </div>
+          <div class="input-group input-group-sm mb-3">
+            <input type="text" id="password" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"
+              value="password">
+          </div>
+
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" id="task_button" data-toggle="modal" data-target="#exampleModalCenter"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- update modal -->
+  <div class="modal fade" id="update_box" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="Title">Update</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div>
+            <input type="text" id="train_name_update" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm" value="Train">
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+
+            <input type="text" id="destination_update" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm" value="Destination">
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+
+            <input type="text" id="frequency_update" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm" value="Frequency">
+          </div>
+
+          <div class="input-group input-group-sm mb-3">
+
+            <input type="text" id="next_arrival_update" class="form-control" aria-label="Sizing example input"
+              aria-describedby="inputGroup-sizing-sm" value="First Train">
+          </div>
+
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary" id="update_button" data-toggle="modal" data-target="#update_box">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    crossorigin="anonymous"></script>
   <script src="assets/javascript/main.js"></script>
 </body>
 

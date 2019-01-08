@@ -1,7 +1,23 @@
+* {box-sizing: border-box; }
+.col-md-12{
+    padding-right: 0;
+    padding-left: 0;
+}
 .navbar{
     margin-bottom: 2%;
 }
+#Log-out{
+    display: none;
+}
+.display-4{
+    text-align: center;
+    font-weight: 600;
+    font-size: 10rem;
+}
 
+.container{
+    display: none;
+}
 #table, #new_entry{
     margin-bottom: 2%;
     border: 2px solid grey;
@@ -16,13 +32,33 @@ td,th{
      border-bottom: 1px solid #dee2e6; 
      border-top: 0 solid #dee2e6 !important; 
 }
-.input-group{
-    margin: 2% 0;
-}
-.form-control{
-    color: #808283
-}
 
 .btn{
     margin: 2% 0;
+}
+
+
+
+.update{
+    margin-right: 3%;
+}
+.table td,.table th{
+    vertical-align: baseline;
+    text-align: center;
+    
+}
+#new_entry{
+    justify-content: center
+}
+#new_entry_box{
+    max-width: 95% !important;
+}
+.input-group{
+    margin: 2% 0;
+  
+  
+}
+.form-control{
+    color: #808283;
+    
 }
