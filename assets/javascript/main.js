@@ -13,14 +13,12 @@ var config = {
     projectId: "train-scheduler-f9cf5",
     storageBucket: "train-scheduler-f9cf5.appspot.com",
     messagingSenderId: "84399187279"
-};
-firebase.initializeApp(config);
+  };
+  firebase.initializeApp(config);
 var database = firebase.database();
 var now = moment()//initial time when could runs
 var now_time = moment(now.hour() + ":" + now.minutes(), "HH:mm", true)
-console.log(now_time)
 var now = moment()//initial time when could runs
-console.log(now)
 if(now.minutes()<10){
     var now_time = moment(now.hour() + ":0" +now.minutes(), "HH:mm", true)
 }
@@ -55,51 +53,8 @@ document.getElementById("submit").addEventListener("click", function () {
 
 })
 
-//TEST FUNCTION
-function myFunction() { // test new stuff
-    var time= moment("16:03","HH:mm", true)
-    console.log(time)
-    console.log(time.format("HH:mm"))
-    if(time.minutes()<10){
-        var test_time = moment(time.hour() + ":0" +time.minutes(), "HH:mm", true)
-    }
-    else{
-    var test_time = moment(time.hour() + ":" + time.minutes(), "HH:mm", true)
-    }
-    console.log(test_time.format("HH:mm"))
-  
-    // var provider = new firebase.auth.GoogleAuthProvider()
-    // firebase.auth().signInWithPopup(provider).then(function (result) {
-    //     // This gives you a Google Access Token. You can use it to access the Google API.
-    //     var token = result.credential.accessToken;
-    //     console.log("success")
-    //     // The signed-in user info.
-    //     var user = result.user;
-    //     // ...
-    // }).catch(function (error) {
-    //     // Handle Errors here.
-    //     var errorCode = error.code;
-    //     var errorMessage = error.message;
-    //     // The email of the user's account used.
-    //     var email = error.email;
-    //     // The firebase.auth.AuthCredential type that was used.
-    //     var credential = error.credential;
-    //     // ...
-    // });
-    
 
 
-}
-
-//checks is database has been running
-database.ref("/time").on("value", function (snapshot) {
-    if (snapshot.child("system_time").exists()) {
-        internal_time = snapshot.val().system_time
-
-    }
-
-    
-})
 // appends data on to html
 
 database.ref("/train").on("child_added", function (snapshot) {
@@ -210,6 +165,7 @@ function display(snapshot) {
 
 
 }
+
 // internal timer update the time
 
 intervalId=setInterval(function(){
@@ -319,7 +275,6 @@ document.getElementById("Sign-in").addEventListener("click", User)
 document.getElementById("Log-in").addEventListener("click", User)
 
 function User() {
-    console.log("working")
     var task = this.textContent.trim()
     document.getElementById("Title").textContent = task
     document.getElementById("task_button").textContent = task
@@ -327,23 +282,27 @@ function User() {
 }
 
 
-var newish = firebase.auth.GoogleAuthProvider
+
 // // AUTHENTICATION
 document.getElementById("task_button").addEventListener("click", Auth)
+document.getElementById("google_sign").addEventListener("click",function(){
 
+    var provider = new firebase.auth.GoogleAuthProvider()
+    firebase.auth().signInWithPopup(provider)
+})
 function Auth() {
-    console.log("hi")
+
     var task = this.textContent
-    console.log(task)
+
     var auth = firebase.auth()
     var email = document.getElementById("email")
     var password = document.getElementById("password")
     switch (task) {
         case "Sign-in":
-            var user = auth.createUserWithEmailAndPassword(email.value, password.value)
+            auth.createUserWithEmailAndPassword(email.value, password.value)
             break;
         case "Log-In":
-            var user = auth.signInWithEmailAndPassword(email.value, password.value)
+            auth.signInWithEmailAndPassword(email.value, password.value)
             break;
     }
 }
@@ -356,15 +315,12 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
         document.getElementById("Log-out").style.display = "block"
         document.getElementById("Log-in").style.display = "none"
         document.getElementById("Sign-in").style.display = "none"
-    } else {
-        console.log("not logged in")
-    }
+    } 
 })
 
 // logging out
 document.getElementById("Log-out").addEventListener("click", function () {
     firebase.auth().signOut().then(function () {
-        console.log("bye")
         document.getElementsByClassName("container")[0].style.display = "none"
         document.getElementById("Log-out").style.display = "none"
         document.getElementById("Log-in").style.display = "block"

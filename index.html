@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Page Title</title>
+  <title>Schedule</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
     crossorigin="anonymous">
@@ -14,13 +14,20 @@
 
   <!-- Link to Moment.js should go here -->
   <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.7.2/firebase.js"></script>
+
+
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-messaging.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.7.2/firebase-functions.js"></script>
 </head>
 
 <body>
-  <nav class="navbar navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">Train Schedule</span>
-    <div> <button type="button" id="Sign-in" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+  <nav class="navbar navbar-light ">
+    <span class=" h1">Train Schedule</span>
+    <div id="auth"> <button type="button" id="Sign-in" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
         Sign-in
       </button>
       <button type="button" id="Log-in" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
@@ -42,7 +49,7 @@
       </div>
     </div>
     <div class="row" id="table">
-      <div class="col-md-12">
+      <div class="col-md-12" id="table-container">
 
         <table id="list" class="table">
         </table>
@@ -82,12 +89,7 @@
       </div>
     </div>
   </div>
-  <button onclick="myFunction()">Try it</button>
-
-
-
-
-  <!-- Button trigger modal -->
+ 
 
 
   <!-- Modal for login and stuff -->
@@ -115,7 +117,7 @@
 
         </div>
         <div class="modal-footer">
-
+          <button type="button" class="btn btn-primary" id="google_sign" data-toggle="modal" data-target="#exampleModalCenter">Sign in With Google</button>
           <button type="button" class="btn btn-primary" id="task_button" data-toggle="modal" data-target="#exampleModalCenter"></button>
         </div>
       </div>
